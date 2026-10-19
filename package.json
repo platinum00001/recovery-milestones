@@ -1,0 +1,17 @@
+{
+  "name": "recovery-milestones",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Recovery Milestones — sobriety anniversary rewards (static site + Supabase).",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test test/",
+    "test:sql": "bash test/run-sql-tests.sh",
+    "serve": "node tools/serve.mjs 8080",
+    "smoke": "node tools/smoke.mjs"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}

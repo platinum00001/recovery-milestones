@@ -1,0 +1,10 @@
+# Supabase CLI config (only the parts this project needs). project_id is set by `supabase link`.
+project_id = "recovery-milestones"
+[functions.milestone-notify]
+verify_jwt = false   # protected by the x-cron-secret header instead
+
+[functions.unsubscribe]
+verify_jwt = false   # public one-click unsubscribe (token-based)
+
+[functions.create-checkout]
+verify_jwt = true

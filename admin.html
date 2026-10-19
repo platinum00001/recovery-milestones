@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://nominatim.openstreetmap.org https://cdn.jsdelivr.net; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Admin · Recovery Milestones</title>
+<meta name="description" content="Celebrate recovery milestones with local rewards, a private badge wall and support from people who care. A Root to Rise program.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Recovery Milestones">
+<meta property="og:title" content="Admin · Recovery Milestones">
+<meta property="og:description" content="Celebrate recovery milestones with local rewards, a private badge wall and support from people who care. A Root to Rise program.">
+<meta property="og:image" content="assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Recovery Milestones by Root to Rise — a sprout rising in front of a sunrise">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1f4d3a">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<main id="main" tabindex="-1">
+
+<div class="wrap" id="admin">
+  <h1>Admin</h1>
+  <p class="muted">Aggregate numbers only — no member names, emails or dates. Use the CSV buttons for grant reports.</p>
+  <div class="grid four" id="summary"></div>
+  <section class="card" style="margin-top:16px"><div class="row"><h2 style="margin:0">By month</h2><span class="spacer"></span><button class="btn small ghost" id="csv-summary" type="button">Summary CSV</button><button class="btn small ghost" id="csv-month" type="button">Monthly CSV</button><button class="btn small ghost" id="csv-detail" type="button">Month × milestone CSV</button></div><div id="by-month" style="margin-top:12px"></div></section>
+  <section class="card" style="margin-top:16px"><h2>By milestone</h2><div id="by-milestone"></div></section>
+  <section class="card" style="margin-top:16px"><h2>Businesses &amp; featured sponsors</h2><div id="businesses"></div></section>
+  <div class="grid two" style="margin-top:16px">
+    <section class="card"><h2>Recovery coaches</h2><div id="coaches"></div>
+      <form id="coach-form" style="margin-top:12px"><h3>Add a coach</h3>
+        <div class="field"><label for="ac-name">Display name</label><input id="ac-name" name="display_name" type="text" required></div>
+        <div class="field"><label for="ac-bio">Bio</label><textarea id="ac-bio" name="bio"></textarea></div>
+        <div class="field"><label for="ac-spec">Specialties <span class="hint">(comma separated)</span></label><input id="ac-spec" name="specialties" type="text"></div>
+        <div class="field"><label for="ac-lang">Languages <span class="hint">(comma separated)</span></label><input id="ac-lang" name="languages" type="text" placeholder="English"></div>
+        <div class="row"><div class="field" style="flex:1"><label for="ac-area">Service area</label><input id="ac-area" name="service_area" type="text"></div><div class="field" style="flex:1"><label for="ac-av">Availability</label><input id="ac-av" name="availability" type="text"></div></div>
+        <label class="check"><input type="checkbox" name="is_example"> This is an example/placeholder profile</label>
+        <button class="btn secondary" type="submit">Add coach</button></form></section>
+    <section class="card"><h2>Coach requests</h2><p class="small notice">Contains personal contact details for follow-up. Handle confidentially; close requests when done.</p><div id="requests"></div></section>
+  </div>
+</div>
+</main>
+<script type="module" src="js/pages/admin.js"></script>
+</body>
+</html>

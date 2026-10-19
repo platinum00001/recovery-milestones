@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://nominatim.openstreetmap.org https://cdn.jsdelivr.net; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Badge Wall · Recovery Milestones</title>
+<meta name="description" content="Celebrate recovery milestones with local rewards, a private badge wall and support from people who care. A Root to Rise program.">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Recovery Milestones">
+<meta property="og:title" content="Badge Wall · Recovery Milestones">
+<meta property="og:description" content="Celebrate recovery milestones with local rewards, a private badge wall and support from people who care. A Root to Rise program.">
+<meta property="og:image" content="assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Recovery Milestones by Root to Rise — a sprout rising in front of a sunrise">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1f4d3a">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<main id="main" tabindex="-1">
+
+<div class="wrap">
+  <div id="public" hidden></div>
+  <div id="owner">
+    <h1>My badge wall</h1>
+    <section class="card"><div class="badges" id="my-badges"></div></section>
+    <section class="card stack" style="margin-top:16px"><h2>Who can see it?</h2>
+      <form id="wall-privacy">
+        <label class="check"><input type="checkbox" name="wall_public"> Make my wall viewable by anyone with the link <span class="hint">(off = only you)</span></label>
+        <label class="check"><input type="checkbox" name="show_name_public"> Show my display name on my wall and cards</label>
+        <label class="check"><input type="checkbox" name="wall_show_date"> Show my clean date and badge dates on my wall</label>
+      </form>
+      <div id="wall-link" hidden class="stack">
+        <label for="wall-url">Your wall link</label>
+        <div class="row"><input id="wall-url" type="text" readonly style="flex:1;min-width:220px"><button class="btn small ghost" id="copy-wall" type="button">Copy</button></div>
+        <div class="row"><button class="btn facebook" id="share-wall" type="button">Share to Facebook</button><a class="btn ghost" id="view-wall" href="#" target="_blank" rel="noopener">Preview public view</a></div>
+      </div>
+    </section>
+    <section class="card stack" style="margin-top:16px"><h2>Notes from supporters</h2><p class="small muted">You decide which notes appear on your wall. <a href="settings.html#supporters-card">Invite supporters</a>.</p><div id="notes" class="stack"></div></section>
+  </div>
+</div>
+</main>
+<script type="module" src="js/pages/wall.js"></script>
+</body>
+</html>

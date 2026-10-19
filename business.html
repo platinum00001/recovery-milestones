@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://nominatim.openstreetmap.org https://cdn.jsdelivr.net; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>For Businesses · Recovery Milestones</title>
+<meta name="description" content="Celebrate recovery milestones with local rewards, a private badge wall and support from people who care. A Root to Rise program.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Recovery Milestones">
+<meta property="og:title" content="For Businesses · Recovery Milestones">
+<meta property="og:description" content="Celebrate recovery milestones with local rewards, a private badge wall and support from people who care. A Root to Rise program.">
+<meta property="og:image" content="assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Recovery Milestones by Root to Rise — a sprout rising in front of a sunrise">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1f4d3a">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<main id="main" tabindex="-1">
+
+<div class="wrap">
+  <section id="biz-intro" hidden>
+    <div class="grid two" style="align-items:start">
+      <div><h1>Celebrate recovery in your town</h1>
+        <p class="lead muted">Offer a small reward for recovery milestones — a free coffee, 10% off, a free class. It's free to join, takes five minutes, and shows neighbors in recovery that your business is in their corner.</p>
+        <ul><li>Choose the milestones you want to celebrate (30 days, 1 year, every year…)</li><li>Set an end date, how to redeem, and a per-person limit</li><li>Members show a code or QR — you mark it used. That's it.</li><li>You never see anyone's name, email or sobriety date.</li></ul>
+        <p><a href="sponsor.html">Want more visibility? Become a featured sponsor →</a></p></div>
+      <div class="card"><div id="biz-signin"></div>
+        <section id="register" hidden><h2>Register your business</h2>
+          <form id="register-form">
+            <div class="field"><label for="rg-name">Business name</label><input id="rg-name" name="name" type="text" required maxlength="100"></div>
+            <div class="field"><label for="rg-email">Contact email</label><input id="rg-email" name="contact_email" type="email" maxlength="200"></div>
+            <div class="row"><div class="field" style="flex:2"><label for="rg-town">Town</label><input id="rg-town" name="town" type="text" maxlength="80"></div><div class="field" style="flex:1"><label for="rg-state">State</label><input id="rg-state" name="state" type="text" maxlength="2" placeholder="MA"></div></div>
+            <div class="field"><label for="rg-addr">Street address</label><input id="rg-addr" name="address" type="text" maxlength="200"></div>
+            <div class="field"><label for="rg-web">Website</label><input id="rg-web" name="website" type="url" maxlength="300" placeholder="https://"></div>
+            <div class="field"><label for="rg-phone">Phone</label><input id="rg-phone" name="phone" type="tel" maxlength="40"></div>
+            <div class="field"><label for="rg-desc">Short description</label><textarea id="rg-desc" name="description" maxlength="600"></textarea></div>
+            <label class="check"><input type="checkbox" name="agree"> We'll honor posted offers, accept the code as the only proof needed, and never try to identify or contact members.</label>
+            <button class="btn" type="submit">Submit for review</button>
+            <p class="small muted">Use a separate sign-in for your business (not your personal recovery account).</p>
+          </form></section>
+      </div>
+    </div>
+  </section>
+  <div id="biz" hidden>
+    <div class="row"><h1 id="biz-name" style="margin:0">Business</h1><span class="spacer"></span><a class="btn" href="redeem.html">Redeem a code</a></div>
+    <p id="biz-status"></p>
+    <div class="grid two">
+      <section class="card"><h2>Your offers</h2><div id="offers" class="stack"></div>
+        <hr><h3>Post an offer</h3>
+        <form id="offer-form">
+          <input type="hidden" name="id">
+          <div class="field"><label for="of-title">Title</label><input id="of-title" name="title" type="text" required maxlength="100" placeholder="Free coffee of any size"></div>
+          <div class="field"><label for="of-desc">Description</label><textarea id="of-desc" name="description" maxlength="500"></textarea></div>
+          <div class="row"><div class="field" style="flex:2"><label for="of-type">Reward type</label><select id="of-type" name="reward_type"><option value="free_item">Free item</option><option value="percent_off">% off</option><option value="amount_off">$ off</option><option value="other">Other</option></select></div>
+            <div class="field" style="flex:1"><label for="of-val">Value</label><input id="of-val" name="reward_value" type="number" min="0" step="0.01" placeholder="e.g. 15"></div></div>
+          <fieldset><legend>Milestones this reward celebrates</legend><div id="targets" class="checks"></div></fieldset>
+          <div class="row"><div class="field" style="flex:1"><label for="of-start">Starts</label><input id="of-start" name="starts_on" type="date"></div><div class="field" style="flex:1"><label for="of-end">Expires</label><input id="of-end" name="expires_on" type="date"></div></div>
+          <div class="field"><label for="of-rules">How to redeem / rules</label><input id="of-rules" name="redemption_rules" type="text" maxlength="500" placeholder="Show code at the counter. Dine-in only."></div>
+          <div class="row"><div class="field" style="flex:1"><label for="of-lim">Per person limit</label><input id="of-lim" name="per_user_limit" type="number" min="1" max="10" value="1"></div><div class="field" style="flex:1"><label for="of-tot">Total available <span class="hint">(optional)</span></label><input id="of-tot" name="total_limit" type="number" min="1"></div></div>
+          <label class="check"><input type="checkbox" name="active" checked> Active</label>
+          <div class="row"><button class="btn" id="offer-submit" type="submit">Post offer</button><button class="btn ghost" id="offer-cancel" type="button">Clear</button></div>
+        </form>
+      </section>
+      <div class="stack">
+        <section class="card"><h2>Codes</h2><p class="small muted" id="claim-stats"></p><div id="claims"></div></section>
+        <section class="card"><h2>Business profile &amp; map location</h2>
+          <form id="bprofile-form">
+            <div class="field"><label for="bp-name">Name</label><input id="bp-name" name="name" type="text" maxlength="100"></div>
+            <div class="field"><label for="bp-desc">Description</label><textarea id="bp-desc" name="description" maxlength="600"></textarea></div>
+            <div class="field"><label for="bp-addr">Street address</label><input id="bp-addr" name="address" type="text" maxlength="200"></div>
+            <div class="row"><div class="field" style="flex:2"><label for="bp-town">Town</label><input id="bp-town" name="town" type="text"></div><div class="field" style="flex:1"><label for="bp-state">State</label><input id="bp-state" name="state" type="text" maxlength="2"></div></div>
+            <div class="row"><div class="field" style="flex:1"><label for="bp-lat">Latitude</label><input id="bp-lat" name="lat" type="number" step="0.00001"></div><div class="field" style="flex:1"><label for="bp-lng">Longitude</label><input id="bp-lng" name="lng" type="number" step="0.00001"></div></div>
+            <p class="small muted">Type coordinates, or press “Find on map” to look up the address once with OpenStreetMap Nominatim.</p>
+            <div class="row"><button class="btn ghost" id="geocode" type="button">Find on map</button></div>
+            <div class="field" style="margin-top:12px"><label for="bp-email">Contact email</label><input id="bp-email" name="contact_email" type="email"></div>
+            <div class="field"><label for="bp-web">Website</label><input id="bp-web" name="website" type="url"></div>
+            <div class="field"><label for="bp-phone">Phone</label><input id="bp-phone" name="phone" type="tel"></div>
+            <button class="btn secondary" type="submit">Save profile</button>
+          </form></section>
+        <section class="card" id="sponsor"><h2>Become a featured sponsor</h2><p class="small">Featured spots put you first on the map and in offers, and help fund Root to Rise. <a href="sponsor.html">See tiers</a>.</p>
+          <form id="sponsor-form" class="row"><select id="sponsor-tiers" aria-label="Sponsor tier" style="flex:1"></select><button class="btn" type="submit">Request</button></form></section>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+<script type="module" src="js/pages/business.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://nominatim.openstreetmap.org https://cdn.jsdelivr.net; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Recovery Coaches · Recovery Milestones by Root to Rise</title>
+<meta name="description" content="Celebrate recovery milestones with local rewards, a private badge wall and support from people who care. A Root to Rise program.">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Recovery Milestones">
+<meta property="og:title" content="Recovery Coaches · Root to Rise">
+<meta property="og:description" content="Celebrate recovery milestones with local rewards, a private badge wall and support from people who care. A Root to Rise program.">
+<meta property="og:image" content="assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Recovery Milestones by Root to Rise — a sprout rising in front of a sunrise">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1f4d3a">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<main id="main" tabindex="-1">
+
+<div class="wrap">
+  <h1>Peer recovery coaches</h1>
+  <p class="lead muted">Talk with someone who has walked this road. Root to Rise can connect you with a peer recovery coach at no cost.</p>
+  <p class="notice small">Profiles marked “Example profile” are placeholders while our coach directory is being built.</p>
+  <div class="grid three" id="coach-list"></div>
+  <section class="card" style="margin-top:24px;max-width:720px"><h2>Request a coach</h2>
+    <div id="coach-signin" hidden><p>Please sign in so we can keep your request private and linked to you.</p><div id="coach-signin-slot"></div></div>
+    <form id="coach-form">
+      <div class="field"><label for="c-coach">Coach</label><select id="c-coach" name="coach_id"></select></div>
+      <div class="field"><label for="c-name">Your name (first name is fine)</label><input id="c-name" name="name" type="text" maxlength="80" required></div>
+      <div class="row"><div class="field" style="flex:1"><label for="c-email">Email</label><input id="c-email" name="email" type="email" maxlength="200"></div><div class="field" style="flex:1"><label for="c-phone">Phone</label><input id="c-phone" name="phone" type="tel" maxlength="40"></div></div>
+      <div class="field"><label for="c-pref">Best way to reach you</label><select id="c-pref" name="preferred_contact"><option value="email">Email</option><option value="phone">Phone call</option><option value="text">Text message</option></select></div>
+      <div class="field"><label for="c-msg">Anything you'd like us to know? <span class="hint">(optional — please don't include medical details)</span></label><textarea id="c-msg" name="message" maxlength="1000"></textarea></div>
+      <label class="check"><input type="checkbox" name="consent"> <span id="consent-text"></span></label>
+      <button class="btn" type="submit">Send request</button>
+      <p class="small muted">In crisis? Call or text 988 now.</p>
+    </form></section>
+</div>
+</main>
+<script type="module" src="js/pages/coaches.js"></script>
+</body>
+</html>

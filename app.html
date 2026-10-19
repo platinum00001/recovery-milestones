@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://nominatim.openstreetmap.org https://cdn.jsdelivr.net; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>My Milestones · Recovery Milestones</title>
+<meta name="description" content="Celebrate recovery milestones with local rewards, a private badge wall and support from people who care. A Root to Rise program.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Recovery Milestones">
+<meta property="og:title" content="My Milestones · Root to Rise">
+<meta property="og:description" content="Celebrate recovery milestones with local rewards, a private badge wall and support from people who care. A Root to Rise program.">
+<meta property="og:image" content="assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Recovery Milestones by Root to Rise — a sprout rising in front of a sunrise">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1f4d3a">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<main id="main" tabindex="-1">
+
+<div class="wrap">
+  <section id="setup" class="card stack" hidden style="max-width:560px;margin:0 auto">
+    <h1>Let's set up your milestones</h1>
+    <p>Your clean date is <strong>private</strong>. It's only used to count your days and find rewards you qualify for.</p>
+    <form id="setup-form" novalidate>
+      <div class="field"><label for="s-date">Clean / sobriety date</label><input id="s-date" name="clean_date" type="date" required></div>
+      <div class="field"><label for="s-name">Display name <span class="hint">(optional — a first name or nickname)</span></label><input id="s-name" name="display_name" type="text" maxlength="60" autocomplete="nickname"></div>
+      <button class="btn" type="submit">Start counting</button>
+      <p class="small muted">Reset your date any time. Recovery isn't a straight line — your badges simply follow your current date.</p>
+    </form>
+  </section>
+  <div id="dash">
+    <h1 id="hello">Welcome back</h1>
+    <div class="grid two">
+      <section class="card center stack" aria-labelledby="days-h">
+        <h2 id="days-h" class="sr-only">Days</h2>
+        <div><span class="big-number" id="days">0</span> <span id="days-label">days</span></div>
+        <p id="last" class="muted" style="margin:0"></p>
+      </section>
+      <section class="card stack" aria-labelledby="next-h">
+        <h2 id="next-h" style="margin:0">Next: <span id="next-label"></span></h2>
+        <p class="muted small" style="margin:0" id="next-date"></p>
+        <div class="countdown" id="countdown" aria-live="off"></div>
+        <div class="progress" role="progressbar" aria-label="Progress to next milestone" aria-valuemin="0" aria-valuemax="100"><span id="progress"></span></div>
+      </section>
+    </div>
+    <section class="card" style="margin-top:16px">
+      <div class="streak"><div id="streak" class="streak"></div><span class="spacer"></span><button class="btn secondary" id="checkin" type="button">I'm here today</button></div>
+      <p class="small muted" style="margin:8px 0 0">One tap a day. A missed day just starts a new streak — your clean time doesn't change.</p>
+    </section>
+    <div class="grid two" style="margin-top:16px">
+      <section class="card stack"><h2>Rewards for you</h2><div id="rewards" class="stack"></div></section>
+      <section class="card stack"><h2>My reward codes</h2><div id="codes" class="stack"></div></section>
+    </div>
+    <div class="grid two" style="margin-top:16px">
+      <section class="card"><h2>Milestone timeline</h2><ul class="timeline" id="timeline"></ul><p class="small" style="margin-top:12px"><a href="wall.html">See my badge wall →</a></p></section>
+      <section class="card"><h2>Make a celebration card</h2>
+        <form id="card-form">
+          <div class="field"><label for="card-key">Milestone</label><select id="card-key" name="key"></select></div>
+          <label class="check"><input type="checkbox" name="show_name" id="card-name"> Show my display name <span class="hint" id="card-name-hint"></span></label>
+          <label class="check"><input type="checkbox" name="show_date"> Show the date</label>
+          <div class="field"><label for="card-msg">Message <span class="hint">(optional)</span></label><input id="card-msg" name="message" type="text" maxlength="200" placeholder="One day at a time"></div>
+          <button class="btn" type="submit">Create card</button>
+          <p class="small muted">Cards show only what you tick. Share to Facebook yourself — we never post for you.</p>
+        </form></section>
+    </div>
+  </div>
+</div>
+<dialog id="code-dialog"><div id="code-body"></div><form method="dialog" class="center"><button class="btn secondary" style="margin-top:12px">Done</button></form></dialog>
+</main>
+<script src="vendor/qrcode-generator.js"></script>
+<script type="module" src="js/pages/app.js"></script>
+</body>
+</html>

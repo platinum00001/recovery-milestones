@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://nominatim.openstreetmap.org https://cdn.jsdelivr.net; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Settings · Recovery Milestones</title>
+<meta name="description" content="Celebrate recovery milestones with local rewards, a private badge wall and support from people who care. A Root to Rise program.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Recovery Milestones">
+<meta property="og:title" content="Settings · Recovery Milestones">
+<meta property="og:description" content="Celebrate recovery milestones with local rewards, a private badge wall and support from people who care. A Root to Rise program.">
+<meta property="og:image" content="assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Recovery Milestones by Root to Rise — a sprout rising in front of a sunrise">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1f4d3a">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<main id="main" tabindex="-1">
+
+<div class="wrap" id="settings">
+  <h1>Settings</h1>
+  <div class="grid two">
+    <section class="card"><h2>Profile &amp; privacy</h2>
+      <form id="profile-form">
+        <div class="field"><label for="p-name">Display name <span class="hint">(optional)</span></label><input id="p-name" name="display_name" type="text" maxlength="60"></div>
+        <div class="field"><label for="p-date">Clean / sobriety date <span class="hint">(private)</span></label><input id="p-date" name="clean_date" type="date"></div>
+        <div class="field"><label for="p-tz">Time zone</label><select id="p-tz" name="timezone"></select></div>
+        <fieldset><legend>Privacy (all off by default)</legend>
+          <label class="check"><input type="checkbox" name="show_name_public"> Show my display name on my wall and cards</label>
+          <label class="check"><input type="checkbox" name="wall_public"> Badge wall viewable by link</label>
+          <label class="check"><input type="checkbox" name="wall_show_date"> Show my clean date on my public wall</label>
+        </fieldset>
+        <button class="btn" type="submit">Save</button>
+      </form>
+      <p class="small" id="identities" style="margin-top:12px"></p>
+    </section>
+    <section class="card"><h2>Emails</h2>
+      <form id="email-form">
+        <label class="check"><input type="checkbox" name="email_milestones"> Email me on milestone days with the rewards I qualify for</label>
+        <label class="check"><input type="checkbox" name="email_reminders"> Email me my meeting reminders</label>
+        <p class="small muted">Every email has a one-click unsubscribe link.</p>
+      </form>
+      <hr>
+      <h2 id="reminders-h">Meeting reminders</h2>
+      <div id="reminders"></div>
+      <form id="reminder-form" class="stack" style="margin-top:12px">
+        <div class="field"><label for="r-label">Label</label><input id="r-label" name="label" type="text" maxlength="80" placeholder="Tuesday home group"></div>
+        <div class="row"><div class="field" style="flex:1"><label for="r-day">Day</label><select id="r-day" name="day_of_week"></select></div><div class="field" style="flex:1"><label for="r-time">Time</label><input id="r-time" name="meet_time" type="time"></div></div>
+        <button class="btn secondary" type="submit">Add reminder</button>
+      </form>
+    </section>
+  </div>
+  <section class="card" id="supporters-card" style="margin-top:16px"><h2 id="supporters-h">Sponsors &amp; friends</h2>
+    <p>Invite people who support your recovery. If you turn it on for them, they'll get a short email on your milestone days with a link to leave you a note. You approve every note.</p>
+    <div id="supporters"></div>
+    <form id="supporter-form" class="grid two" style="margin-top:12px">
+      <div class="field"><label for="sp-name">Their name</label><input id="sp-name" name="name" type="text" maxlength="80" required></div>
+      <div class="field"><label for="sp-email">Their email</label><input id="sp-email" name="email" type="email" maxlength="200" required></div>
+      <div class="field"><label for="sp-rel">Relationship</label><select id="sp-rel" name="relationship"><option value="sponsor">Sponsor</option><option value="friend">Friend</option><option value="family">Family</option><option value="other">Other</option></select></div>
+      <div class="field"><label class="check"><input type="checkbox" name="notify_on_milestones" checked> Email them on my milestones</label>
+        <label class="check"><input type="checkbox" name="consent_confirmed" required> They agreed to get emails from Root to Rise about my milestones</label></div>
+      <div><button class="btn secondary" type="submit">Add supporter</button><p class="small muted">They'll get one short welcome email with an unsubscribe link. We never sell or share their email.</p></div>
+    </form>
+  </section>
+  <section class="card" style="margin-top:16px"><h2>Your data</h2>
+    <p>Download everything we store about you, or delete it all. Deletion is permanent.</p>
+    <div class="row"><button class="btn ghost" id="export" type="button">Download my data (JSON)</button><button class="btn danger" id="delete" type="button">Delete my data</button></div>
+  </section>
+</div>
+</main>
+<script type="module" src="js/pages/settings.js"></script>
+</body>
+</html>
