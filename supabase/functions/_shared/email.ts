@@ -19,7 +19,7 @@ ${bodyHtml}
 </td></tr>
 <tr><td style="padding:16px 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#6b6b6b;border-top:1px solid #eadfcc">
 ${esc(CRISIS_FOOTER_TEXT)}<br><br>
-Recovery Milestones is a Root to Rise program. Root to Rise is the recovery program of Inspiration Is Everywhere, Falmouth, MA · roottorisema@gmail.com<br>
+Recovery Milestones · Falmouth, MA · contact@recoverymilestones.example<br>
 <a href="${esc(unsubscribeUrl)}" style="color:#1f4d3a">Unsubscribe from these emails</a> (one click)
 </td></tr></table></td></tr></table></body></html>`;
 }
@@ -27,11 +27,11 @@ Recovery Milestones is a Root to Rise program. Root to Rise is the recovery prog
 export interface SendArgs { to: string; subject: string; html: string; text: string; unsubscribeUrl: string; oneClickUrl: string }
 
 export async function sendEmail(a: SendArgs): Promise<{ ok: boolean; id?: string; error?: string; dryRun?: boolean }> {
-  const dryRun = (Deno.env.get('DRY_RUN') ?? 'false') === 'true';
-  const from = Deno.env.get('RESEND_FROM') ?? 'Recovery Milestones by Root to Rise <onboarding@resend.dev>';
-  if (dryRun) { console.log('[DRY_RUN] would email', a.to, '·', a.subject); return { ok: true, dryRun: true }; }
   const key = Deno.env.get('RESEND_API_KEY');
-  if (!key) return { ok: false, error: 'RESEND_API_KEY is not set' };
+  // Dry run (log only, nothing is sent) when DRY_RUN=true OR when no Resend key has been set yet.
+  const dryRun = (Deno.env.get('DRY_RUN') ?? 'false') === 'true' || !key;
+  const from = Deno.env.get('RESEND_FROM') ?? 'Recovery Milestones <onboarding@resend.dev>';
+  if (dryRun) { console.log('[DRY_RUN] would email', a.to, '·', a.subject); return { ok: true, dryRun: true }; }
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },

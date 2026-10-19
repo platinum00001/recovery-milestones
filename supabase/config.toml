@@ -3,8 +3,8 @@ project_id = "recovery-milestones"
 [functions.milestone-notify]
 verify_jwt = false   # protected by the x-cron-secret header instead
 
-[functions.unsubscribe]
+[functions.milestones-unsubscribe]
 verify_jwt = false   # public one-click unsubscribe (token-based)
 
-[functions.create-checkout]
+[functions.milestones-checkout]
 verify_jwt = true

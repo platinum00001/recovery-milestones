@@ -903,5 +903,5 @@ grant execute on all functions in schema milestones to service_role;
 insert into milestones.sponsor_tiers (key, name, price_cents, billing_interval, perks, sort) values
   ('sprout', 'Sprout Sponsor', 2500, 'month', array['"Featured" badge on the rewards map', 'Listed first in offers'], 1),
   ('branch', 'Branch Sponsor', 5000, 'month', array['Everything in Sprout', 'Logo on the funder impact page', 'Highlighted in milestone emails'], 2),
-  ('canopy', 'Canopy Sponsor', 10000, 'month', array['Everything in Branch', 'Homepage spotlight', 'Thank-you in Root to Rise newsletters'], 3)
+  ('canopy', 'Canopy Sponsor', 10000, 'month', array['Everything in Branch', 'Homepage spotlight', 'Thank-you in Recovery Milestones newsletters'], 3)
 on conflict (key) do nothing;

@@ -1,6 +1,6 @@
 import { chrome, signInPanel, $, h, toast, showError, formToObject } from '../ui.js';
 
-const CONSENT_TEXT = 'I agree that Root to Rise (Inspiration Is Everywhere) may store this request and contact me by the method I chose to help connect me with a recovery coach. I understand this is not emergency or medical care, and I can ask for this request to be deleted at any time.';
+const CONSENT_TEXT = 'I agree that Recovery Milestones may store this request and contact me by the method I chose to help connect me with a recovery coach. I understand this is not emergency or medical care, and I can ask for this request to be deleted at any time.';
 const ctx = await chrome();
 const coaches = await ctx.A.coaches().catch(() => []);
 $('#coach-list').innerHTML = coaches.length ? coaches.map((c) => `<div class="card stack">
@@ -19,6 +19,6 @@ f.onsubmit = async (e) => {
   const o = formToObject(f);
   if (!o.consent) return toast('Please tick the consent box so we can contact you.');
   if (!o.email && !o.phone) return toast('Add an email or phone number.');
-  try { await ctx.A.requestCoach({ ...o, consent_text: CONSENT_TEXT }); f.innerHTML = '<div class="notice ok"><strong>Request received.</strong> A Root to Rise team member will reach out. If you need help right now, call or text 988.</div>'; }
+  try { await ctx.A.requestCoach({ ...o, consent_text: CONSENT_TEXT }); f.innerHTML = '<div class="notice ok"><strong>Request received.</strong> A Recovery Milestones team member will reach out. If you need help right now, call or text 988.</div>'; }
   catch (err) { showError(err); }
 };

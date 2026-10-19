@@ -21,7 +21,7 @@ page.on('dialog', (d) => d.accept('DELETE'));
 
 async function as(role) {
   await page.goto(`${BASE}/index.html`, { waitUntil: 'networkidle0' });
-  await page.evaluate((r) => { const k = 'rtr-milestones-demo-v1'; const s = JSON.parse(localStorage.getItem(k)); s.session = r ? `demo-${r}` : null; localStorage.setItem(k, JSON.stringify(s)); }, role);
+  await page.evaluate((r) => { const k = 'rm-milestones-demo-v1'; const s = JSON.parse(localStorage.getItem(k)); s.session = r ? `demo-${r}` : null; localStorage.setItem(k, JSON.stringify(s)); }, role);
 }
 async function visit(path, shot, { mobile = false, check } = {}) {
   await page.setViewport(mobile ? { width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true } : { width: 1280, height: 900 });
@@ -40,7 +40,7 @@ const must = async (cond, msg) => { if (!(await cond)) throw new Error(msg); };
 // fresh state
 await page.goto(`${BASE}/index.html`); await page.evaluate(() => localStorage.clear());
 await as(null);
-await visit('index.html', 'home', { check: async () => must(page.$('[data-provider=google]'), 'Google button missing') });
+await visit('index.html', 'home', { check: async () => must(page.$('#magic-email'), 'email sign-in form missing') });
 await visit('index.html', 'home-mobile', { mobile: true });
 for (const p of ['map.html', 'impact.html', 'sponsor.html', 'coaches.html', 'privacy.html', 'about.html', 'note.html?t=demo-note-token', 'unsubscribe.html?token=nope', 'card.html?id=missing', 'wall.html?u=sam-example']) {
   const shot = { 'map.html': 'map', 'impact.html': 'impact', 'sponsor.html': 'sponsor', 'coaches.html': 'coaches', 'note.html?t=demo-note-token': 'supporter-note' }[p];
@@ -74,7 +74,7 @@ await visit('wall.html?u=sam-example', 'public-wall', { check: async () => must(
 // business
 await as('business');
 await visit('business.html', 'business-portal', { check: async () => must((await text('#offers')).includes('Free coffee'), 'offers listed') });
-const memberCode = await page.evaluate(() => JSON.parse(localStorage.getItem('rtr-milestones-demo-v1')).claims.find((c) => c.offer_id === 'o1')?.code);
+const memberCode = await page.evaluate(() => JSON.parse(localStorage.getItem('rm-milestones-demo-v1')).claims.find((c) => c.offer_id === 'o1')?.code);
 await visit(`redeem.html?code=${memberCode}`, 'redeem', { check: async () => { await page.click('#redeem-form button'); await new Promise((r) => setTimeout(r, 300)); await must((await text('#result')).includes('Redeemed'), 'redeemed'); await page.screenshot({ path: `${root}preview-redeem.png` }); return 'code redeemed'; } });
 
 // admin

@@ -1,4 +1,4 @@
-// unsubscribe — RFC 8058 one-click unsubscribe endpoint used in the List-Unsubscribe email header.
+// milestones-unsubscribe — RFC 8058 one-click unsubscribe endpoint used in the List-Unsubscribe email header.
 // POST (or GET) ?token=<uuid>. Works for member tokens and supporter tokens. Deploy with --no-verify-jwt.
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 

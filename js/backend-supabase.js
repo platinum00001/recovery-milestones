@@ -80,7 +80,7 @@ export async function createBackend(CONFIG, SITE_URL) {
     redeemCode: (code) => rpc('redeem_code', { p_code: code }),
     requestSponsorship: (tier) => rpc('request_sponsorship', { p_tier: tier }),
     async startCheckout(tier) {
-      const { data, error } = await sb.functions.invoke('create-checkout', { body: { tier } });
+      const { data, error } = await sb.functions.invoke('milestones-checkout', { body: { tier } });
       if (error) throw new Error(error.message); return data.url;
     },
 

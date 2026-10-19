@@ -17,7 +17,7 @@ async function publicView(s) {
   v.innerHTML = `<div class="card stack"><h1>${w.display_name ? h(w.display_name) + "'s" : 'A'} recovery badge wall</h1>
     ${w.clean_date ? `<p class="muted">Clean since ${fmtDate(w.clean_date)}</p>` : ''}
     <div class="badges">${w.badges.map((b) => chip(b.key, b.reached_on ? fmtDate(b.reached_on) : '')).join('')}</div>
-    <div class="row"><button class="btn facebook" id="share" type="button">Share to Facebook</button><span class="small muted">Celebrated with Recovery Milestones by Root to Rise</span></div></div>
+    <div class="row"><button class="btn facebook" id="share" type="button">Share to Facebook</button><span class="small muted">Celebrated with Recovery Milestones</span></div></div>
     <h2 style="margin-top:24px">Notes of encouragement</h2>
     <div class="stack">${w.notes.length ? w.notes.map((n) => `<div class="note"><p style="margin:0">${h(n.message)}</p><div class="small muted">— ${h(n.author_name)}</div></div>`).join('') : '<p class="muted">No notes yet.</p>'}</div>`;
   $('#share').onclick = () => openShare(location.href);

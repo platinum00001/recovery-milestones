@@ -7,7 +7,7 @@ const table = (head, body) => `<div class="table-wrap"><table><thead><tr>${head.
 const ctx = await chrome();
 const p = await requireSignIn(ctx);
 if (!p) $('#admin').hidden = true;
-else if (p.role !== 'admin') $('#admin').innerHTML = '<div class="card"><h1>Admins only</h1><p class="muted">Ask the Root to Rise team if you need access.</p></div>';
+else if (p.role !== 'admin') $('#admin').innerHTML = '<div class="card"><h1>Admins only</h1><p class="muted">Ask the Recovery Milestones team if you need access.</p></div>';
 else await render();
 
 async function render() {

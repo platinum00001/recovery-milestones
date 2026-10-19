@@ -4,7 +4,7 @@ import * as M from './milestones.js';
 import { computeStreak } from './streak.js';
 import { generateCode, normalizeCode, suppress } from './format.js';
 
-const KEY = 'rtr-milestones-demo-v1';
+const KEY = 'rm-milestones-demo-v1';
 const today = () => M.todayISO();
 const uuid = () => (crypto.randomUUID ? crypto.randomUUID() : 'id-' + Math.random().toString(36).slice(2));
 const nowIso = () => new Date().toISOString();
@@ -45,7 +45,7 @@ function seed() {
   const tiers = [
     { key: 'sprout', name: 'Sprout Sponsor', price_cents: 2500, billing_interval: 'month', perks: ['"Featured" badge on the rewards map', 'Listed first in offers'], sort: 1 },
     { key: 'branch', name: 'Branch Sponsor', price_cents: 5000, billing_interval: 'month', perks: ['Everything in Sprout', 'Logo on the funder impact page', 'Highlighted in milestone emails'], sort: 2 },
-    { key: 'canopy', name: 'Canopy Sponsor', price_cents: 10000, billing_interval: 'month', perks: ['Everything in Branch', 'Homepage spotlight', 'Thank-you in Root to Rise newsletters'], sort: 3 },
+    { key: 'canopy', name: 'Canopy Sponsor', price_cents: 10000, billing_interval: 'month', perks: ['Everything in Branch', 'Homepage spotlight', 'Thank-you in Recovery Milestones newsletters'], sort: 3 },
   ];
   return { session: null, users, prefs: { 'demo-member': { email_milestones: true, email_reminders: false, unsubscribe_token: 'demo-unsub' } }, businesses, offers, claims, badges: [], cards: [], supporters, notes, reminders, checkins: { 'demo-member': days }, coaches, coachRequests: [], sponsorships: [], tiers };
 }

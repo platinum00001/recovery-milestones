@@ -16,14 +16,14 @@ if (!card) {
       <h1>${h(label)}!</h1>
       <div class="sub">in recovery${card.milestone_date ? ' · ' + fmtDate(card.milestone_date) : ''}</div>
       ${card.message ? `<blockquote>“${h(card.message)}”</blockquote>` : ''}
-      <div class="small" style="margin-top:22px;opacity:.85">Celebrated with Recovery Milestones by Root to Rise</div>
+      <div class="small" style="margin-top:22px;opacity:.85">Celebrated with Recovery Milestones</div>
     </div>
     <div class="row no-print" style="justify-content:center;margin-top:20px">
       <button class="btn facebook" id="fb" type="button">Share to Facebook</button>
       <button class="btn ghost" id="copy" type="button">Copy link</button>
       <a class="btn ghost" href="app.html">Back to my milestones</a>
     </div>
-    <p class="small muted center no-print" style="margin-top:12px">Facebook opens a share window — nothing is posted unless you press Post there. The link preview shows a general Root to Rise image, never your date.</p>`;
+    <p class="small muted center no-print" style="margin-top:12px">Facebook opens a share window — nothing is posted unless you press Post there. The link preview shows a general Recovery Milestones image, never your date.</p>`;
   $('#fb').onclick = () => openShare(location.href);
   $('#copy').onclick = async () => { try { await navigator.clipboard.writeText(location.href); toast('Link copied.'); } catch { toast(location.href); } };
 }

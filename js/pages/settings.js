@@ -40,7 +40,7 @@ async function render(p) {
   sf.onsubmit = async (e) => {
     e.preventDefault();
     const o = formToObject(sf);
-    if (!o.consent_confirmed) return toast('Please confirm they agreed to hear from Root to Rise.');
+    if (!o.consent_confirmed) return toast('Please confirm they agreed to hear from Recovery Milestones.');
     try { await A.addSupporter(o); sf.reset(); toast('Supporter added.'); await renderSupporters(); } catch (err) { showError(err); }
   };
 

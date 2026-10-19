@@ -20,7 +20,7 @@ function db() {
 
 const unsubLinks = (token: string) => ({
   unsubscribeUrl: `${SITE}/unsubscribe.html?token=${token}`,
-  oneClickUrl: `${FUNCS}/unsubscribe?token=${token}`,
+  oneClickUrl: `${FUNCS}/milestones-unsubscribe?token=${token}`,
 });
 
 // Reserve a send in notification_log; returns false if it was already sent (idempotent re-runs).
@@ -83,10 +83,10 @@ async function daily(sb: ReturnType<typeof db>) {
     const who = prof?.display_name || 'A friend';
     const html = layout(`${who} added you as a supporter`, `
       <p>Hi ${esc(s.name)},</p>
-      <p>${esc(who)} added you as a supporter on Recovery Milestones (a Root to Rise program). When they reach a recovery milestone, we'll send you a short note so you can cheer them on.</p>
+      <p>${esc(who)} added you as a supporter on Recovery Milestones. When they reach a recovery milestone, we'll send you a short note so you can cheer them on.</p>
       <p>That's all — no marketing, and your email is never sold or shared.</p>`, `${SITE}/unsubscribe.html?token=${s.note_token}`);
     const r = await sendEmail({ to: s.email, subject: `${who} added you as a Recovery Milestones supporter`, html,
-      text: `${who} added you as a supporter on Recovery Milestones (a Root to Rise program). Unsubscribe: ${SITE}/unsubscribe.html?token=${s.note_token}`, ...unsubLinks(s.note_token) });
+      text: `${who} added you as a supporter on Recovery Milestones. Unsubscribe: ${SITE}/unsubscribe.html?token=${s.note_token}`, ...unsubLinks(s.note_token) });
     if (r.ok) { stats.invites++; await sb.from('supporters').update({ invited_at: new Date().toISOString() }).eq('id', s.id); }
     else stats.errors.push(`invite: ${r.error}`);
     await sleep(SEND_GAP_MS);

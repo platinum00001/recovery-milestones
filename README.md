@@ -1,16 +1,20 @@
-# Recovery Milestones — a Root to Rise program
+# Recovery Milestones
 
 **Like birthday rewards, but for recovery.** Members track their clean date privately, collect milestone
 badges, claim small rewards from local businesses, share a celebration card if they want to, and let the
 sponsors, friends and family they invite cheer them on.
 
-Root to Rise is the recovery program of **Inspiration Is Everywhere**, a nonprofit in Falmouth, MA ·
-roottorisema@gmail.com. Planned repo: `platinum00001/recovery-milestones` (not created yet).
+Based in Falmouth, MA. Contact: contact@recoverymilestones.example (**placeholder — TODO: supply a real
+contact email**, see `docs/SETUP.md`). Repo: `platinum00001/recovery-milestones`. Live:
+https://platinum00001.github.io/recovery-milestones/
 
-> **Status: v0.1, local only.** Nothing has been deployed, no GitHub repo exists, and no Supabase project
-> has been changed. While `js/config.js` still holds placeholders, the site runs in **preview mode**:
-> every page works with fictional sample data kept in the browser's localStorage, and a banner lets you
-> view the site as a member, a business, an admin, or a signed-out visitor.
+> **Status: v0.2, connected to Supabase.** The site uses the real database in the `milestones` schema of the
+> james-sites Supabase project (no sample data; the three coach profiles are labeled Example). Sign-in is email
+> magic link for now; Google and Facebook are added after their OAuth setup. Emails run in dry-run mode until a
+> Resend key is set, payments are off, and the cron schedule is not enabled. Remaining manual steps are listed at
+> the top of `docs/SETUP.md` (the first one, exposing the `milestones` schema in the Data API settings, is required
+> before any data loads). The old local preview backend (`js/backend-demo.js`) only runs if `js/config.js` holds
+> placeholder values; it is never shown on the live site.
 
 ## Features
 
@@ -26,7 +30,7 @@ roottorisema@gmail.com. Planned repo: `platinum00001/recovery-milestones` (not c
 | **Reward codes** | Each claim gets a unique 8-character code (no look-alike characters) and a client-side QR code. The QR encodes `redeem.html?code=…`. Codes work once and expire after 30 days or when the offer ends. Members can claim a reward within 30 days of reaching a qualifying milestone. |
 | **Redeem screen** | Businesses type or scan a code, and it's marked used. Businesses never see member names, emails or dates. |
 | **Rewards map** | Leaflet with OpenStreetMap tiles. Featured sponsors get gold pins. Businesses type coordinates or press "Find on map" for a single Nominatim lookup (rate-limited, cached, attributed). |
-| **Featured sponsors** | Admins set the featured flag and tier on each business. `sponsor.html` shows the pricing tiers. With `PAYMENTS_ENABLED=false` (the default), every tier offers a **"Contact us to sponsor" mailto to roottorisema@gmail.com**. Scaffolding for Stripe Payment Links or Checkout (`create-checkout` edge function) is included, but no keys are wired. |
+| **Featured sponsors** | Admins set the featured flag and tier on each business. `sponsor.html` shows the pricing tiers. With `PAYMENTS_ENABLED=false` (the default), every tier offers a **"Contact us to sponsor" mailto to contact@recoverymilestones.example**. Scaffolding for Stripe Payment Links or Checkout (`milestones-checkout` edge function) is included, but no keys are wired. |
 | **Celebration cards** | `card.html?id=…` shows only what the member ticked (for example "1 Year!" without the date). It has Open Graph tags and a Facebook Share Dialog button (`facebook.com/sharer/sharer.php?u=`). Nothing is ever auto-posted. |
 | **Emails** | The `milestone-notify` edge function is triggered by pg_cron. A daily run sends milestone emails (opt-in), supporter shout-outs and one-time supporter invites. An hourly run sends meeting reminders (opt-in). Email goes through Resend's free tier, using the `RESEND_API_KEY` secret. Every email includes a one-click unsubscribe link and RFC 8058 `List-Unsubscribe` headers. |
 | **Meeting reminders** | The member sets the day, time and label. Emails go out about an hour before, and only if the member opted in. |
@@ -55,8 +59,8 @@ supabase/migrations/001_init.sql      schema `milestones`, tables, RLS, RPCs, ad
 supabase/migrations/002_schedule.sql  pg_cron + pg_net jobs (daily milestones, hourly reminders)
 supabase/seed.sql                     EXAMPLE coaches/businesses/offers (all labeled "(Example)") + cleanup
 supabase/functions/milestone-notify   daily/hourly email function (Deno/TypeScript)
-supabase/functions/unsubscribe        RFC 8058 one-click unsubscribe endpoint
-supabase/functions/create-checkout    Stripe Checkout scaffold (disabled unless PAYMENTS_ENABLED=true)
+supabase/functions/milestones-unsubscribe        RFC 8058 one-click unsubscribe endpoint
+supabase/functions/milestones-checkout    Stripe Checkout scaffold (disabled unless PAYMENTS_ENABLED=true)
 test/*.test.mjs           node --test unit tests (+ SQL/JS parity test when a local Postgres is present)
 test/sql/                 local Supabase stub + RLS/RPC behaviour tests; run with test/run-sql-tests.sh
 tools/serve.mjs           tiny local static server       tools/smoke.mjs   headless-Chrome smoke test + screenshots

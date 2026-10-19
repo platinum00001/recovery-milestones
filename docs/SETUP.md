@@ -1,6 +1,39 @@
 # Recovery Milestones: going live (click-by-click)
 
-Recovery Milestones is a Root to Rise program. Do these steps in order. Steps marked **(James)** need your own
+## Current status (October 19, 2026)
+
+Already done (by Grok Bot, with your approval):
+- **Database:** `supabase/migrations/001_init.sql` is applied to the **james-sites** project
+  (`oiousqgzqcjanikglkxl`) in its own `milestones` schema. Nothing in `public` or the other schemas was touched.
+  No seed data was loaded except three coach profiles clearly labeled **(Example)**, so the coach page isn't empty.
+- **Site config:** `js/config.js` holds the project URL and the *publishable* key (safe to publish; RLS protects
+  the data). The preview banner and sample-data role switcher no longer show; the live site uses the real database.
+- **Edge functions deployed:** `milestone-notify` (dry run: logs only, sends nothing until `RESEND_API_KEY` is set;
+  returns 403 until `CRON_SECRET` is set), `milestones-unsubscribe`, `milestones-checkout` (returns "payments not
+  enabled" because `PAYMENTS_ENABLED` is not `true`).
+- **Not done on purpose:** no cron schedule (step 8), no payments, no Google/Facebook buttons yet
+  (`AUTH_PROVIDERS: []` in `js/config.js`; email magic link only).
+
+Still to do, in this order — each needs your own dashboard login:
+1. **Expose the schema (blocking):** step 2b below. Until this is done, every data call returns
+   "Invalid schema: milestones" and the pages show empty states.
+2. **Redirect URL:** step 5, add `https://platinum00001.github.io/recovery-milestones/**` to Auth → URL
+   Configuration → *Redirect URLs*. Leave the **Site URL** as it is (other sites use this project).
+3. **Make yourself admin:** step 2c.
+4. **Resend:** step 6, then set the function secrets in step 7 (`RESEND_API_KEY`, `RESEND_FROM`, `SITE_URL`,
+   `CRON_SECRET`). Until Resend is set up, Supabase's built-in email only delivers magic links to members of your
+   Supabase team and is rate-limited — add Resend as custom SMTP (Auth → SMTP) for real members.
+5. **Google sign-in:** step 3, then add `'google'` to `AUTH_PROVIDERS` in `js/config.js`.
+6. **Facebook Login:** step 4, then add `'facebook'` to `AUTH_PROVIDERS`.
+7. **TODO — contact email:** the site uses the placeholder `contact@recoverymilestones.example`. Supply a real
+   contact address and replace it everywhere (`rg -l recoverymilestones.example`): `js/config.js`, `about.html`,
+   `privacy.html`, `impact.html`, `js/pages/unsubscribe.js`, `supabase/functions/_shared/email.ts`,
+   `supabase/functions/milestones-checkout/index.ts`, and this file.
+8. **Cron:** step 8, only once emails are tested.
+
+---
+
+Do these steps in order. Steps marked **(James)** need your own
 logins (Google, Facebook, Supabase, Resend, GitHub). Everything is on free tiers.
 
 Placeholders:
@@ -71,7 +104,7 @@ Placeholders:
 2. Then run this in the SQL Editor:
    ```sql
    update milestones.profiles set role = 'admin'
-   where id = (select id from auth.users where email = 'roottorisema@gmail.com');
+   where id = (select id from auth.users where email = 'YOUR-SIGN-IN-EMAIL');
    ```
    Use whichever email you actually signed in with.
 
@@ -82,10 +115,10 @@ Go to **Advisors → Security Advisor**. Every `milestones` table should show RL
 
 ## 3. Google sign-in (OAuth client) **(James)**
 
-1. Go to console.cloud.google.com → pick or create a project (for example "Root to Rise") → **APIs & Services → OAuth consent screen**.
+1. Go to console.cloud.google.com → pick or create a project (for example "Recovery Milestones") → **APIs & Services → OAuth consent screen**.
    - In newer consoles this is **Google Auth Platform → Branding / Audience**.
    - User type: **External** → **Create**.
-   - App name: `Recovery Milestones`. Support email: `roottorisema@gmail.com`.
+   - App name: `Recovery Milestones`. Support email: `contact@recoverymilestones.example`.
    - App logo: optional (adding one can trigger Google's verification review).
    - App domain:
      - Home page: `<site>`
@@ -110,7 +143,7 @@ Go to **Advisors → Security Advisor**. Every `milestones` table should show RL
 
 1. Go to developers.facebook.com → **My Apps → Create App**.
    - Use case: **"Authenticate and request data from users with Facebook Login"** → Next.
-   - App name: `Recovery Milestones`. Contact email: `roottorisema@gmail.com`.
+   - App name: `Recovery Milestones`. Contact email: `contact@recoverymilestones.example`.
    - Business portfolio: optional → **Create app**.
 2. In the left menu, go to **Use cases → Authentication and account creation → Customize**
    (older layout: **Add product → Facebook Login → Set up → Web**).
@@ -187,7 +220,7 @@ npx supabase link --project-ref <project-ref>
 # secrets (never commit these)
 npx supabase secrets set \
   RESEND_API_KEY=re_xxx \
-  RESEND_FROM="Recovery Milestones by Root to Rise <hello@yourdomain.org>" \
+  RESEND_FROM="Recovery Milestones <hello@yourdomain.org>" \
   CRON_SECRET=$(openssl rand -hex 32) \
   SITE_URL=<site> \
   DB_SCHEMA=milestones \
@@ -195,8 +228,8 @@ npx supabase secrets set \
 npx supabase secrets list            # note: you'll need the CRON_SECRET value again in step 8
 
 npx supabase functions deploy milestone-notify --no-verify-jwt   # protected by the x-cron-secret header
-npx supabase functions deploy unsubscribe      --no-verify-jwt   # public one-click unsubscribe (token-based)
-npx supabase functions deploy create-checkout                    # stays disabled while PAYMENTS_ENABLED=false
+npx supabase functions deploy milestones-unsubscribe --no-verify-jwt   # public one-click unsubscribe (token-based)
+npx supabase functions deploy milestones-checkout                    # stays disabled while PAYMENTS_ENABLED=false
 ```
 
 Notes:
@@ -213,12 +246,12 @@ Notes:
 1. Go to **Database → Extensions** → enable **pg_cron** and **pg_net**. The migration also tries to do this.
 2. In the SQL Editor, store the two values the cron jobs need:
    ```sql
-   select vault.create_secret('https://<project-ref>.supabase.co', 'rtr_project_url');
-   select vault.create_secret('<the CRON_SECRET from step 7>', 'rtr_cron_secret');
+   select vault.create_secret('https://<project-ref>.supabase.co', 'rm_project_url');
+   select vault.create_secret('<the CRON_SECRET from step 7>', 'rm_cron_secret');
    ```
 3. Paste `supabase/migrations/002_schedule.sql` → **Run**. This creates two jobs:
-   - `rtr-milestone-notify-daily` runs at 13:00 UTC, which is 9 AM Eastern in summer and 8 AM in winter.
-   - `rtr-meeting-reminders-hourly` runs at the top of every hour.
+   - `rm-milestone-notify-daily` runs at 13:00 UTC, which is 9 AM Eastern in summer and 8 AM in winter.
+   - `rm-meeting-reminders-hourly` runs at the top of every hour.
 4. To check: `select * from cron.job;`. After a run: `select * from cron.job_run_details order by start_time desc limit 5;`.
    Function logs are under **Edge Functions → milestone-notify → Logs**.
 
@@ -263,7 +296,7 @@ Notes:
 ## Optional: featured-sponsor payments (later)
 
 The defaults are `PAYMENTS_ENABLED=false` in `js/config.js` and in the function secret. While payments are off,
-every tier shows **"Contact us to sponsor"**, a mailto to roottorisema@gmail.com, and admins set
+every tier shows **"Contact us to sponsor"**, a mailto to contact@recoverymilestones.example, and admins set
 featured/tier by hand.
 
 To take card payments later, use one of these:

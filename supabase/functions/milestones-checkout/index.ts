@@ -1,4 +1,4 @@
-// create-checkout — SCAFFOLD ONLY. Creates a Stripe Checkout Session for a featured-sponsor tier.
+// milestones-checkout — SCAFFOLD ONLY. Creates a Stripe Checkout Session for a featured-sponsor tier.
 // Disabled unless the PAYMENTS_ENABLED secret is exactly "true". No live keys are wired.
 // Secrets when enabling: PAYMENTS_ENABLED=true, STRIPE_SECRET_KEY (start with a sk_test_ key), SITE_URL,
 // and STRIPE_PRICE_<TIER> (e.g. STRIPE_PRICE_SPROUT=price_123) for each tier.
@@ -11,7 +11,7 @@ const cors = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
   if (Deno.env.get('PAYMENTS_ENABLED') !== 'true') {
-    return Response.json({ error: 'Online payments are not enabled yet. Please email roottorisema@gmail.com to sponsor.' }, { status: 503, headers: cors });
+    return Response.json({ error: 'Online payments are not enabled yet. Please email contact@recoverymilestones.example to sponsor.' }, { status: 503, headers: cors });
   }
   const auth = req.headers.get('Authorization') ?? '';
   const sb = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_ANON_KEY')!, {

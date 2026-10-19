@@ -32,7 +32,7 @@ async function renderPortal(b) {
   $('#biz-name').textContent = b.name;
   $('#biz-status').innerHTML = b.status === 'approved' ? '<span class="pill">Approved — your offers are live</span>' : b.status === 'pending' ? '<span class="pill warn">Pending review — offers go live once approved</span>' : '<span class="pill warn">Suspended — contact us</span>';
   if (b.featured) $('#biz-status').insertAdjacentHTML('beforeend', ' <span class="pill gold">Featured sponsor</span>');
-  if (new URLSearchParams(location.search).get('sponsor') === 'thanks') toast('Thank you for sponsoring Root to Rise!');
+  if (new URLSearchParams(location.search).get('sponsor') === 'thanks') toast('Thank you for sponsoring Recovery Milestones!');
 
   // profile + geocoding
   const pf = $('#bprofile-form');
@@ -92,8 +92,8 @@ async function renderPortal(b) {
       await A.requestSponsorship(tier);
       const link = CONFIG.PAYMENTS_ENABLED && CONFIG.STRIPE_PAYMENT_LINKS?.[tier];
       if (link) { location.href = link; return; }
-      location.href = `mailto:${CONFIG.CONTACT_EMAIL}?subject=${encodeURIComponent(`Featured sponsor: ${b.name} (${tier})`)}&body=${encodeURIComponent(`Hi Root to Rise,\n\nWe'd like to become a ${tier} sponsor.\n\nBusiness: ${b.name}\nTown: ${b.town || ''}\n\nThanks!`)}`;
-      toast('Request saved — we opened an email to Root to Rise.');
+      location.href = `mailto:${CONFIG.CONTACT_EMAIL}?subject=${encodeURIComponent(`Featured sponsor: ${b.name} (${tier})`)}&body=${encodeURIComponent(`Hi Recovery Milestones team,\n\nWe'd like to become a ${tier} sponsor.\n\nBusiness: ${b.name}\nTown: ${b.town || ''}\n\nThanks!`)}`;
+      toast('Request saved — we opened an email to the Recovery Milestones team.');
     } catch (err) { showError(err); }
   };
 }
